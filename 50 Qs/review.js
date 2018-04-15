@@ -219,7 +219,7 @@
 //
 // //Q19: Write a function called slice, which accepts an array, and two numbers. The function should return a new array with the elements starting at the index of the first number and going until the index of the second number. If a third parameter is not passed to the function, it should slice until the end of the array by default. If the third parameter is greater than the length of the array, it should slice until the end of the array. Do not use the built in Array.slice() function!
 //
-// 
+//
 // describe('', function() {
 //   it('', function() {
 //     expect(slice([1, 2, 3, 4, 5], 0, 2)).toEqual([1, 2])
@@ -230,8 +230,14 @@
 //   });
 // });
 //
-// //Q20: Write a function called concat, which accepts an array, and a variable amount of parameters (all of which are arrays). The function returns a new array with all of the remaining parameters joined with the array. Do not use the built in Array.concat() function!
+// //!!Q20: Write a function called concat, which accepts an array, and a variable amount of parameters (all of which are arrays). The function returns a new array with all of the remaining parameters joined with the array. Do not use the built in Array.concat() function!
 //
 //
 // //Q21: Write a function called keys, which accepts an object and returns an array of all of the keys in the object. Do not use the built in Object.keys() function!
 //
+
+//Q22: Write a function called values, which accepts an object and returns an array of all of the values in the object. Do not use the built in Object.values() function!
+
+//!!Q23: Write a function called swapKeyAndValue, which accepts an object and a key. The function should return a new object with the given key and its value flipped, and all the other key/value pairs unchanged.
+
+//Q24: Write a function called entries, which accepts an object and returns an array of arrays of key-value pairs. In other words, each sub-array is an "entry" in the object with two elements: the first element is the key, and the second element is the value. Do not use the built in Object.entries() function!
