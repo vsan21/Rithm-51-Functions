@@ -489,6 +489,27 @@ describe('', function() {
 });
 
 //Q23: Write a function called swapKeyAndValue, which accepts an object and a key. The function should return a new object with the given key and its value flipped, and all the other key/value pairs unchanged.
+function swapKeyAndValue (obj, findKey) {
+  let newObj = {};
+  for(let key in obj) {
+    if(key === findKey) {
+      newObj[obj[key]] = key;
+    } else {
+      newObj[key] = obj[key];
+    }
+  }
+  return newObj;
+}
+
+describe('', function() {
+  it('', function() {
+    expect(swapKeyAndValue({ name: 'Elie', job: 'Instructor' }, 'name')).toEqual({Elie: 'name', job: "Instructor"})
+  });
+
+  it('', function() {
+    expect(swapKeyAndValue({ name: 'Elie', job: 'Instructor' }, 'job')).toEqual({name: "Elie", Instructor: 'job'})
+  });
+});
 
 //Q24: Write a function called entries, which accepts an object and returns an array of arrays of key-value pairs. In other words, each sub-array is an "entry" in the object with two elements: the first element is the key, and the second element is the value. Do not use the built in Object.entries() function!
 
