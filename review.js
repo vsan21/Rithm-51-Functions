@@ -441,3 +441,15 @@ describe('', function() {
     expect(entries({})).toEqual([])
   });
 });
+
+//Q25:
+
+//Q26:
+
+//Q27:
+
+//Q28:
+
+//Q29:
+
+//Q30:
