@@ -531,25 +531,231 @@ describe('', function() {
   });
 });
 
-//Q25:
+//Q25: Write a function called every which accepts an array and a callback function. The function should return true if all values in the array passed to the callback return true, otherwise return false. Do not use the built in every function, the tests will fail!
+function every (arr, fn) {
+  for(let num of arr) {
+    if(!(fn(num))) {
+      return false;
+    }
+  }
+  return true;
+}
 
-//Q26:
+every([1, 2, 3, 4, 5], function(val) {
+ return val > 0;
+}); // true
 
-//Q27:
+every([1, 2, 3, 4, 5], function(val) {
+ return val < 2;
+}); // false
 
-//Q28:
+//Q26: Write a function called some which accepts an array and a callback function. The function should return true if any value in the array passed to the callback returns true, otherwise return false. Do not use the built in some function, the tests will fail!
+function some (arr, fn) {
+  for(let num of arr) {
+    if(fn(num)) {
+      return true;
+    }
+  }
+  return false;
+}
 
-//Q29:
+some([1, 2, 3, 4, 5], function(val) {
+ return val > 5;
+}); // false
 
-//Q30:
+some([1, 2, 3, 4, 5], function(val) {
+ return val < 2;
+}); // true
 
-//Q31:
+//Q27: Write a function called filter which accepts an array and a callback function. The callback takes a single parameter called val and return a boolean based on some comparison to the value. The function should return an array of all values that pass the comparison test. Do not use the built in filter function, the tests will fail!
+function filter (arr, fn) {
+  let newArr = [];
+  for(let num of arr) {
+    if(fn(num)) {
+      newArr.push(num);
+    }
+  }
+  return newArr;
+}
+
+var arr = [1, 2, 3, 4, 5];
+
+filter(arr, function(val) {
+ return val > 3;
+}); // [4,5]
+
+filter(['a', 1, '2', 3], function(val) {
+ return typeof val === 'string';
+}); // ["a","2"]
+
+filter([1, 2, 3, 4, 5], function(val) {
+ return typeof val === 'string';
+}); // []
+
+//Q28: Write a function called countIf which accepts an array and a callback function. The callback function will return a boolean comparison to its val parameter. The function should return a count of the number of times the callback returns true when passed each value in the array.
+function countIf (arr, fn) {
+  let count = 0;
+  for(let num of arr) {
+    if(fn(num)) {
+      count++;
+    }
+  }
+  return count;
+}
+
+countIf([1, 2, 3, 4, 5], function(val) {
+ return val > 4;
+}); // 1
+
+countIf([2, 4, 6, 7], function(val) {
+ return val % 2 === 0;
+}); // 3
+
+countIf(['Tim', 'Matt', 'Elie'], function(val) {
+ return val.length > 3;
+}); // 2
+
+//Q29: Write a function called countValues which accepts an array and a number and returns the number of times that value appears in the array.
+function countValues (arr, num) {
+  let count = 0;
+  for(let n of arr) {
+    if(n === num) {
+      count++;
+    }
+  }
+  return count;
+}
+
+countValues([4,1,4,2,3,4,4], 4) // 4
+countValues([4,1,4,2,3,4,4], 100) // 0
+countValues([], 1) // 0
+//Q30: Write a function called squareEvenNumbers which accepts an array and returns the sum of all of the even numbers in the array squared.
+function squareEvenNumbers (arr) {
+  let sum = 0;
+  for(let num of arr) {
+    if(num % 2 === 0) {
+      sum += Math.pow(num, 2);
+    }
+  }
+  return sum;
+}
+
+squareEvenNumbers([1, 2, 3, 4, 5]); // 20
+squareEvenNumbers([1, 3, 5, 7]); // 0
+squareEvenNumbers([5, 6, 7]); // 36
+
+//Q31: Write a function called pluck, which takes an array of objects and the name of a key. The function should return an array containing the value associated with that key for each object, or undefined if that key is not present in the object.
+
+//Longer way:
+function pluck (arr, findKey) {
+  let newArr = [];
+  for (let obj of arr) {
+    if(findKey in obj) {
+      newArr.push(obj[findKey]);
+    } else {
+      newArr.push(undefined);
+    }
+  }
+  return newArr;
+}
+
+//Shorter way:
+function pluck (arr, findKey) {
+  let newArr = [];
+  for(let obj of arr) {
+    newArr.push(obj[findKey]);
+  }
+  return newArr;
+}
+
+pluck([
+  { name: "Tim" }, { name: "Matt" }, { name: "Elie" }],
+ 'name'
+)
+// ["Tim", "Matt", "Elie"]
+
+pluck(
+  [{ name: "Tim", isBoatOwner: true }, { name: "Matt", isBoatOwner: false }, { name: "Elie" }],
+ 'isBoatOwner'
+)
+// [true, false, undefined]
 
 //Q32:
 
-//Q33:
+//Q33: Write a function called twoHighest that takes an array of numbers as its argument and returns the two highest numbers within the array. The returned value should be an array in the following format: [secondHighest, highest]. The order of the numbers passed in could be any order.
 
-//Q34:
+//Longer Way: .splice is modifying the original array so you're removing items while in the for-loop so it continues with the iteration # even though the array length has been modified.
+function twoHighest (arr) {
+  let secondLargest = Math.min(...arr);
+  let max = Math.max(...arr);
+
+  for(let num of arr) {
+    if(num > secondLargest) {
+      secondLargest = num;
+      var index = arr.indexOf(num);
+      arr.splice(index, 1);
+    }
+  }
+  return [secondLargest, max];
+}
+
+//Another Way:
+function twoHighest(arr) {
+  // initialize both to the lowest possible values
+  let highest = -Infinity;
+  let secondHighest = -Infinity;
+
+  for (let num of arr) {
+    // set secondHighest first
+    if (num > secondHighest) {
+      secondHighest = num;
+    }
+    // see if we need to set highest
+    if (secondHighest >= highest) {
+      // if so, swap
+      let tmp = highest;
+      highest = secondHighest;
+      secondHighest = tmp;
+    }
+  }
+
+  return [secondHighest, highest];
+}
+
+//Shorter Way: O(nlogn) using .sort
+function twoHighestWithSort(arr) {
+  return arr.sort((a, b) => a > b).slice(-2);
+}
+
+twoHighest([4, 25, 3, 20, 19, 5]); // [20,25]
+twoHighest([1, 2, 2]) // [2, 2];
+
+//Q34: Write a function called minMaxKeyInObject that accepts an object with numeric keys. The function should return an array with the following format: [lowestKey, highestKey]. Remember all object keys are strings, even if they hold numeric values.
+//Longer Way:
+function minMaxKeyInObject (obj) {
+  let highestKey = -Infinity;
+  let lowestKey = Infinity;
+  for(let key in obj) {
+    if(+key < lowestKey) {
+      lowestKey = +key;
+    }
+    if(+key > highestKey) {
+      highestKey = +key;
+    }
+  }
+  return [lowestKey, highestKey];
+}
+
+//Shorter Way: Math.max and min automatically converts the string into a number before. Object.keys() creates an array of the keys
+// function minMaxKeyInObject (obj) {
+//   return [Math.min(...Object.keys(obj)), Math.max(...Object.keys(obj))];
+// }
+
+minMaxKeyInObject({ 2: 'a', 7: 'b', 1: 'c', 10: 'd', 4: 'e' });
+// [1, 10]
+
+minMaxKeyInObject({ 1: 'Elie', 4: 'Matt', 2: 'Tim' });
+// [1, 4]
 
 //Q35:
 
